@@ -7,22 +7,31 @@ import lombok.AllArgsConstructor;
 import money.application.user.SignUpUseCase.dto.SignUpUseCaseResponse;
 import money.application.user.SignUpUseCase.vo.SignUpUseCaseRequestBody;
 import money.application.user.SignUpUseCase.vo.SignUpUseCaseResponseBody;
+import money.core.exceptions.CommonException;
 import money.domain.entity.User;
+import money.domain.enums.UserStatus;
+import money.infra.UserRepository;
 import money.interfaces.IRequest;
 import money.interfaces.IResponse;
 import org.springframework.stereotype.Service;
 
+import static money.core.error.enums.BadRequestCode.DUPLICATE_ID;
+
 @Service
 @AllArgsConstructor
 public class SignUpUseCase {
+    private UserRepository userRepository;
     private EntityManager entityManager;
 
     @Transactional(rollbackOn = Exception.class)
     public IResponse<SignUpUseCaseResponseBody> execute(IRequest<SignUpUseCaseRequestBody> iRequest) {
         SignUpUseCaseRequestBody conditions = iRequest.getConditions();
 
+        if (userRepository.findUserByIdAndStatus(conditions.getId(), UserStatus.ACTIVE.name()).isPresent())
+            throw CommonException.init(DUPLICATE_ID);
+
         User user = new User();
-        user.setMoney(0L);
+        user.setPoint(0L);
         user.setId(conditions.getId());
         user.setPassword(conditions.getPassword());
 
