@@ -9,5 +9,5 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 public class BaseResponse {
     public Integer status = HttpStatus.OK.value();
-    public String message = "";
+    public String message = "success";
 }
