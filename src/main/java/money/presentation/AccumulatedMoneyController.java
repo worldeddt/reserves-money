@@ -43,7 +43,7 @@ public class AccumulatedMoneyController {
     private final FindTotalAccumulatedMoneyUseCase findTotalAccumulatedMoneyUseCase;
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PutMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
     public ResponseEntity<FindUsageHistoryResponse> get(
             @Valid @RequestBody FindUsageHistoryRequest findUsageHistoryRequest,
             @PageableDefault(page = 1, sort = "index", direction = Sort.Direction.DESC)
