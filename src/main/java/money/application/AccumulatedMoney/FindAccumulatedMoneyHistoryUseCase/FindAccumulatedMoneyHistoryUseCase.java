@@ -2,6 +2,7 @@ package money.application.AccumulatedMoney.FindAccumulatedMoneyHistoryUseCase;
 
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import money.application.AccumulatedMoney.FindAccumulatedMoneyHistoryUseCase.dto.FindAccumulatedMoneyHistoryUseCaseResponse;
 import money.application.AccumulatedMoney.FindAccumulatedMoneyHistoryUseCase.vo.FindAccumulatedMoneyHistoryUseCaseRequestBody;
 import money.application.AccumulatedMoney.FindAccumulatedMoneyHistoryUseCase.vo.FindAccumulatedMoneyHistoryUseCaseResponseBody;
@@ -22,6 +23,7 @@ import static money.core.error.enums.NotFoundCode.RESERVESE_MONEY_LIST_NOT_FOUND
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class FindAccumulatedMoneyHistoryUseCase {
     private AccumulatedMoneyRepository accumulatedMoneyRepository;
 
@@ -46,7 +48,7 @@ public class FindAccumulatedMoneyHistoryUseCase {
         return
                 FindAccumulatedMoneyHistoryUseCaseResponse.init(
                         accumulatedMoneyHistoryDomains,
-                        conditions.getPageable().getPageNumber(),
+                        conditions.getPageable().getPageNumber() + 1,
                         conditions.getPageable().getPageSize(),
                         accumulatedMoneyHistoryPage.getTotalElements(),
                         accumulatedMoneyHistoryPage.getTotalPages(),

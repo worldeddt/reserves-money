@@ -11,8 +11,5 @@ import java.util.UUID;
 
 @Repository
 public interface AccumulatedMoneyRepository extends JpaRepository<AccumulatedMoneyHistory, Integer> {
-
-//    Optional<List<AccumulatedPointHistory>> findAllByUserUuidOrderByIndexDesc(String uuid, Pageable pageable);
-
     Page<AccumulatedMoneyHistory> findAllByUserUuidOrderByIndexDesc(UUID uuid, Pageable pageable);
 }

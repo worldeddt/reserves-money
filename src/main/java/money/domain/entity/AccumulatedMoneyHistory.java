@@ -3,6 +3,8 @@ package money.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.annotations.Comment;
 
 @Data
@@ -16,6 +18,7 @@ public class AccumulatedMoneyHistory extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "rmu_index", columnDefinition = "int",  nullable = false, name = "rmh_rmu_index")
+    @ToString.Exclude
     private User user;
 
     @Comment("적립/사용 상태 (ACCUMUL:적립, USED:사용)")

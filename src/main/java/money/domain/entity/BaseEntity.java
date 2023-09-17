@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
+public class BaseEntity {
     @Comment("등록일시")
     @Column(name = "register_datetime", columnDefinition = "datetime default '0000-00-00 00:00:00'",
-            nullable = false, updatable = false)
+            updatable = false, nullable = false)
     @CreatedDate
     private LocalDateTime registerDatetime;
 

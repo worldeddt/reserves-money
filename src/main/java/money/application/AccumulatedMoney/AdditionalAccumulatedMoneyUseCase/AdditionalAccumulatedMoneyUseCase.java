@@ -38,6 +38,9 @@ public class AdditionalAccumulatedMoneyUseCase {
         accumulatedMoneyHistory.setOnUser(user);
         accumulatedMoneyHistory.setPrice(conditions.getPoint());
         accumulatedMoneyHistory.setStatus(AccumulateStatus.ACCUMUL.name());
+
+        user.setPoint(user.getPoint()+conditions.getPoint());
+
         accumulatedMoneyRepository.saveAndFlush(accumulatedMoneyHistory);
     }
 }

@@ -39,7 +39,7 @@ public class User extends BaseEntity {
     private String status;
 
     @Comment("유저 포인트")
-    @Column(name = "rmu_nickname", columnDefinition = "int default 0", nullable = false)
+    @Column(name = "rmu_point", columnDefinition = "bigint default 0", nullable = false)
     private Long point;
 
     @PrePersist

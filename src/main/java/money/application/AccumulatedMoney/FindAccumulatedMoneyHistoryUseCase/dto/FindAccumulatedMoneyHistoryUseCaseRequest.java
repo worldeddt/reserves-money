@@ -26,7 +26,8 @@ public class FindAccumulatedMoneyHistoryUseCaseRequest implements
     @Override
     public FindAccumulatedMoneyHistoryUseCaseRequestBody getConditions() {
         return FindAccumulatedMoneyHistoryUseCaseRequestBody.init(
-                this.uuid, this.pageable
+                this.uuid,
+                this.pageable
         );
     }
 }
