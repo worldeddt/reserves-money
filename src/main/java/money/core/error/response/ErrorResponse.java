@@ -2,12 +2,15 @@ package money.core.error.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import money.core.BaseCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 
 
+
+@Getter
 @Builder(access = AccessLevel.PRIVATE)
 @Slf4j
 public class ErrorResponse {
