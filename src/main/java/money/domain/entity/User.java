@@ -17,13 +17,13 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name= "reserves_money_user")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rmu_index")
     private Integer index;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<AccumulatedPointHistory> accumulatedPointHistories;
 
     @Comment("아이디")
@@ -38,12 +38,16 @@ public class User extends BaseEntity{
     @Column(name = "rmu_user_uuid", columnDefinition = "varchar(1000) default ''", nullable = false, unique = true)
     private UUID uuid;
 
+    @Comment("유저 상태")
+    @Column(name="rmu_status", columnDefinition = "enum('ACTIVE', 'DELETED') default 'ACTIVE'", nullable = false)
+    private String status;
+
     @Comment("유저 포인트")
     @Column(name = "rmu_nickname", columnDefinition = "int default 0", nullable = false)
     private Long point;
 
     @PrePersist
-    public void createSn() {
+    public void createUuid() {
         this.uuid = UuidCreator.getTimeOrdered();
     }
 }

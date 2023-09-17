@@ -4,13 +4,17 @@ package money.presentation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import money.application.AccumulatedPoint.AdditionalAccumulatedMoneyUseCase.AdditionalAccumulatedMoneyUseCase;
+import money.application.AccumulatedPoint.AdditionalAccumulatedMoneyUseCase.dto.AdditionalAccumulatedMoneyUseCaseRequest;
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.FindAccumulatedPointHistoryUseCase;
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.dto.FindAccumulatedPointHistoryUseCaseRequest;
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.vo.FindAccumulatedPointHistoryUseCaseResponseBody;
 import money.config.ApiErrorCodeExample;
+import money.core.BaseResponse;
 import money.core.error.enums.BadRequestCode;
 import money.core.error.enums.NotFoundCode;
 import money.interfaces.IResponse;
+import money.presentation.request.AdditionalAccumulatedMoneyRequest;
 import money.presentation.request.FindUsageHistoryRequest;
 import money.presentation.response.FindUsageHistoryResponse;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AccumulatedPointController {
     private final FindAccumulatedPointHistoryUseCase findAccumulatedPointHistoryUseCase;
+    private final AdditionalAccumulatedMoneyUseCase additionalAccumulatedMoneyUseCase;
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
     @PostMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
@@ -52,6 +57,22 @@ public class AccumulatedPointController {
                 responseBody.getTotalPages(),
                 responseBody.getLast()
                 ));
+    }
+
+    @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
+    @PostMapping(value = "/add", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<BaseResponse> additionalMoney(
+            @Valid @RequestBody AdditionalAccumulatedMoneyRequest additionalAccumulatedMoneyRequest
+    ) {
+
+        additionalAccumulatedMoneyUseCase.execute(
+                AdditionalAccumulatedMoneyUseCaseRequest.init(
+                        additionalAccumulatedMoneyRequest.getPoint(),
+                        additionalAccumulatedMoneyRequest.getUuid()
+                )
+        );
+
+        return ResponseEntity.ok(new BaseResponse());
     }
 
 }
