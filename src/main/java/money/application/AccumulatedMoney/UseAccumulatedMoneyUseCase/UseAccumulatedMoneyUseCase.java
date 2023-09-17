@@ -10,6 +10,7 @@ import money.domain.entity.AccumulatedMoneyHistory;
 import money.domain.entity.User;
 import money.domain.enums.AccumulateStatus;
 import money.domain.enums.UserStatus;
+import money.infra.AccumulatedMoneyRepository;
 import money.infra.UserRepository;
 import money.interfaces.IRequest;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,10 @@ import static money.core.error.enums.NotFoundCode.USER_NOT_FOUND;
 @AllArgsConstructor
 public class UseAccumulatedMoneyUseCase {
     private UserRepository userRepository;
-    private EntityManager entityManager;
+    private AccumulatedMoneyRepository accumulatedMoneyRepository;
 
     @Transactional(rollbackOn = Exception.class)
-    public void execute(IRequest<UseAccumulatedMoneyUseCaseRequestBody> iRequest) {
+    public synchronized void execute(IRequest<UseAccumulatedMoneyUseCaseRequestBody> iRequest) {
         UseAccumulatedMoneyUseCaseRequestBody conditions = iRequest.getConditions();
 
         User user = userRepository.findUserByUuidAndStatus(UUID.fromString(conditions.getUuid()), UserStatus.ACTIVE.name())
@@ -39,6 +40,6 @@ public class UseAccumulatedMoneyUseCase {
         accumulatedMoneyHistory.setOnUser(user);
         accumulatedMoneyHistory.setPrice(conditions.getPoint());
         accumulatedMoneyHistory.setStatus(AccumulateStatus.USED.name());
-        entityManager.persist(accumulatedMoneyHistory);
+        accumulatedMoneyRepository.saveAndFlush(accumulatedMoneyHistory);
     }
 }

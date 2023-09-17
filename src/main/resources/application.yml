@@ -23,4 +23,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MariaDBDialect
         storage_engine: innodb
+        hikari:
+          maximum-pool-size: 50
     defer-datasource-initialization: true
