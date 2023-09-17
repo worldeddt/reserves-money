@@ -5,18 +5,14 @@ import com.github.f4b6a3.uuid.UuidCreator;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Comment;
-import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 
 @Data
 @Entity
-@Table(name= "reserves_money_user")
+@Table(name= "accumulated_money_user")
 public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +20,7 @@ public class User extends BaseEntity {
     private Integer index;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<AccumulatedPointHistory> accumulatedPointHistories;
+    private List<AccumulatedMoneyHistory> accumulatedPointHistories;
 
     @Comment("아이디")
     @Column(name = "rmu_id", columnDefinition = "varchar(50) default''", nullable = false)

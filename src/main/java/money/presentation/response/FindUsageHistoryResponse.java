@@ -4,7 +4,7 @@ package money.presentation.response;
 import lombok.*;
 import money.core.BaseResponse;
 import money.core.PageResponse;
-import money.domain.AccumulatedPointHistoryDomain;
+import money.domain.AccumulatedMoneyHistoryDomain;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import java.util.List;
 @Builder(access = AccessLevel.PRIVATE)
 @Getter
 public class FindUsageHistoryResponse extends BaseResponse {
-    private List<AccumulatedPointHistoryDomain> accumulatedPointHistoryDomainList;
+    private List<AccumulatedMoneyHistoryDomain> accumulatedPointHistoryDomainList;
     private PageResponse pageResponse;
 
     public static FindUsageHistoryResponse init(
-            List<AccumulatedPointHistoryDomain> accumulatedPointHistoryDomainList,
+            List<AccumulatedMoneyHistoryDomain> accumulatedPointHistoryDomainList,
             Integer pageNo,
             Integer pageSize,
             Long totalElements,

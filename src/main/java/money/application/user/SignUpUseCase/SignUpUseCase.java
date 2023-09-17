@@ -22,7 +22,7 @@ public class SignUpUseCase {
         SignUpUseCaseRequestBody conditions = iRequest.getConditions();
 
         User user = new User();
-        user.setPoint(0L);
+        user.setMoney(0L);
         user.setId(conditions.getId());
         user.setPassword(conditions.getPassword());
 
