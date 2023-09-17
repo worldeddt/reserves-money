@@ -14,6 +14,8 @@ import money.infra.UserRepository;
 import money.interfaces.IRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 import static money.core.error.enums.NotFoundCode.USER_NOT_FOUND;
 
 
@@ -28,7 +30,7 @@ public class AdditionalAccumulatedMoneyUseCase {
 
         AdditionalAccumulatedMoneyUseCaseRequestBody conditions = iRequest.getConditions();
 
-        User user = userRepository.findUserByUuidAndStatus(conditions.getUuid(), UserStatus.ACTIVE.name())
+        User user = userRepository.findUserByUuidAndStatus(UUID.fromString(conditions.getUuid()), UserStatus.ACTIVE.name())
                 .orElseThrow(() -> CommonException.init(USER_NOT_FOUND));
 
         AccumulatedMoneyHistory accumulatedMoneyHistory = new AccumulatedMoneyHistory();

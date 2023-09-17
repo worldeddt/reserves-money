@@ -24,6 +24,6 @@ public class SignUpUseCaseRequest implements IRequest<SignUpUseCaseRequestBody> 
     public SignUpUseCaseRequestBody getConditions() {
         return SignUpUseCaseRequestBody.init(
                 this.id, this.password
-        )
+        );
     }
 }
