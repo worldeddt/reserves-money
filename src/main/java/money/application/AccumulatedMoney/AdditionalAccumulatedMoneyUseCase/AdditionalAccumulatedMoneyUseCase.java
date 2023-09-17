@@ -38,6 +38,7 @@ public class AdditionalAccumulatedMoneyUseCase {
         accumulatedMoneyHistory.setOnUser(user);
         accumulatedMoneyHistory.setPrice(conditions.getPoint());
         accumulatedMoneyHistory.setStatus(AccumulateStatus.ACCUMUL.name());
+        accumulatedMoneyHistory.setPurpose(conditions.getPurpose());
 
         user.setPoint(user.getPoint()+conditions.getPoint());
 

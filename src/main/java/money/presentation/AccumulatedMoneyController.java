@@ -78,6 +78,7 @@ public class AccumulatedMoneyController {
         additionalAccumulatedMoneyUseCase.execute(
                 AdditionalAccumulatedMoneyUseCaseRequest.init(
                         additionalAccumulatedMoneyRequest.getPoint(),
+                        additionalAccumulatedMoneyRequest.getPurpose(),
                         additionalAccumulatedMoneyRequest.getUuid()
                 )
         );
@@ -93,6 +94,7 @@ public class AccumulatedMoneyController {
         useAccumulatedMoneyUseCase.execute(
                 UseAccumulatedMoneyUseCaseRequest.init(
                         useAccumulatedMoneyRequest.getPoint(),
+                        useAccumulatedMoneyRequest.getPurpose(),
                         useAccumulatedMoneyRequest.getUuid()
                 )
         );

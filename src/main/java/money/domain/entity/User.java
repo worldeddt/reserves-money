@@ -30,7 +30,7 @@ public class User extends BaseEntity {
     @Column(name = "rmu_password", columnDefinition = "varchar(500) default ''", nullable = false)
     private String password;
 
-    @Comment("유저 전용 유니크 번호")
+    @Comment("유저 전용 사용자 식별 번호")
     @Column(name = "rmu_user_uuid", columnDefinition = "varchar(1000) default ''", nullable = false, unique = true)
     private UUID uuid;
 

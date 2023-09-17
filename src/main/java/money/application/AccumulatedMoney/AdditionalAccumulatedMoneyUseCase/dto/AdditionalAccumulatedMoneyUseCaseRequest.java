@@ -10,13 +10,15 @@ import money.interfaces.IRequest;
 public class AdditionalAccumulatedMoneyUseCaseRequest implements
         IRequest<AdditionalAccumulatedMoneyUseCaseRequestBody> {
     private Integer point;
+    private String purpose;
     private String uuid;
 
     public static AdditionalAccumulatedMoneyUseCaseRequest init(
-            Integer point, String uuid
+            Integer point, String purpose, String uuid
     ) {
         return AdditionalAccumulatedMoneyUseCaseRequest.builder()
                 .point(point)
+                .purpose(purpose)
                 .uuid(uuid)
                 .build();
     }
@@ -24,7 +26,7 @@ public class AdditionalAccumulatedMoneyUseCaseRequest implements
     @Override
     public AdditionalAccumulatedMoneyUseCaseRequestBody getConditions() {
         return AdditionalAccumulatedMoneyUseCaseRequestBody.init(
-                this.point, this.uuid
+                this.point, this.purpose, this.uuid
         );
     }
 }

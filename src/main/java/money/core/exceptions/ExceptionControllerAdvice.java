@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> exception(Exception e, HttpServletRequest httpServletRequest) {
-        log.info("common : ");
         logErrorMessage(e, httpServletRequest.getRequestURI());
         return ResponseEntity.internalServerError().body(ErrorResponse.init(e));
     }

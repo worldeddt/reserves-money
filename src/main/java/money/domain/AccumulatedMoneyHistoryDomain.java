@@ -13,6 +13,7 @@ public class AccumulatedMoneyHistoryDomain {
     private Integer index;
     private String status;
     private Integer price;
+    private String purpose;
     private String registerDatetime;
     private String updateDatetime;
 
@@ -22,6 +23,7 @@ public class AccumulatedMoneyHistoryDomain {
         return AccumulatedMoneyHistoryDomain.builder()
                 .index(accumulatedPointHistory.getIndex())
                 .price(accumulatedPointHistory.getPrice())
+                .purpose(accumulatedPointHistory.getPurpose())
                 .status(accumulatedPointHistory.getStatus())
                 .registerDatetime(
                         accumulatedPointHistory.getRegisterDatetime() == null ? "0000-00-00 00:00:00"

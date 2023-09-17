@@ -29,7 +29,6 @@ public class ErrorResponse {
     }
 
     public static ErrorResponse init(FieldError fieldError) {
-        log.info("fieldError :"+fieldError.getDefaultMessage());
         return ErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(fieldError.getDefaultMessage())

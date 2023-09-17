@@ -19,4 +19,7 @@ public class AdditionalAccumulatedMoneyRequest {
     @Min(value = 1, message = "적립금이 부족합니다.(최솟값:1) ")
     @Positive(message = "적립될 수 없는 금액입니다. (양의 정수만 사용 가능)")
     private Integer point;
+
+    @NotBlank(message = "필수값(purpose)이 누락 되었습니다.")
+    private String purpose;
 }

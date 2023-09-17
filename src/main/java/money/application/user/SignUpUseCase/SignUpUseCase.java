@@ -8,7 +8,6 @@ import money.application.user.SignUpUseCase.dto.SignUpUseCaseResponse;
 import money.application.user.SignUpUseCase.vo.SignUpUseCaseRequestBody;
 import money.application.user.SignUpUseCase.vo.SignUpUseCaseResponseBody;
 import money.core.exceptions.CommonException;
-import money.domain.entity.BaseEntity;
 import money.domain.entity.User;
 import money.domain.enums.UserStatus;
 import money.infra.UserRepository;

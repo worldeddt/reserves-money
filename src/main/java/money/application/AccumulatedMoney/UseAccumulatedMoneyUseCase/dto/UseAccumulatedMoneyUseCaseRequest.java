@@ -9,13 +9,15 @@ import money.interfaces.IRequest;
 @Builder(access = AccessLevel.PRIVATE)
 public class UseAccumulatedMoneyUseCaseRequest implements IRequest<UseAccumulatedMoneyUseCaseRequestBody> {
     private Integer point;
+    private String purpose;
     private String uuid;
 
     public static UseAccumulatedMoneyUseCaseRequest init(
-            Integer point, String uuid
+            Integer point, String purpose, String uuid
     ) {
         return UseAccumulatedMoneyUseCaseRequest.builder()
                 .point(point)
+                .purpose(purpose)
                 .uuid(uuid)
                 .build();
     }
@@ -23,7 +25,7 @@ public class UseAccumulatedMoneyUseCaseRequest implements IRequest<UseAccumulate
     @Override
     public UseAccumulatedMoneyUseCaseRequestBody getConditions() {
         return UseAccumulatedMoneyUseCaseRequestBody.init(
-                this.point, this.uuid
+                this.point, this.purpose, this.uuid
         );
     }
 }

@@ -10,13 +10,15 @@ import lombok.Getter;
 @Builder(access = AccessLevel.PRIVATE)
 public class AdditionalAccumulatedMoneyUseCaseRequestBody {
     private Integer point;
+    private String purpose;
     private String uuid;
 
     public static  AdditionalAccumulatedMoneyUseCaseRequestBody init(
-            Integer point, String uuid
+            Integer point, String purpose, String uuid
     ) {
         return AdditionalAccumulatedMoneyUseCaseRequestBody.builder()
                 .point(point)
+                .purpose(purpose)
                 .uuid(uuid)
                 .build();
     }
