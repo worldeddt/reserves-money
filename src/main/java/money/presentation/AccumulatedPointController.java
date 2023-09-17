@@ -9,6 +9,9 @@ import money.application.AccumulatedPoint.AdditionalAccumulatedMoneyUseCase.dto.
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.FindAccumulatedPointHistoryUseCase;
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.dto.FindAccumulatedPointHistoryUseCaseRequest;
 import money.application.AccumulatedPoint.FindAccumulatedPointHistoryUseCase.vo.FindAccumulatedPointHistoryUseCaseResponseBody;
+import money.application.AccumulatedPoint.FindTotalAccumulatedMoneyUseCase.FindTotalAccumulatedMoneyUseCase;
+import money.application.AccumulatedPoint.FindTotalAccumulatedMoneyUseCase.dto.FindTotalAccumulatedMoneyUseCaseRequest;
+import money.application.AccumulatedPoint.FindTotalAccumulatedMoneyUseCase.vo.FindTotalAccumulatedMoneyUseCaseResponseBody;
 import money.application.AccumulatedPoint.UseAccumulatedMoneyUseCase.UseAccumulatedMoneyUseCase;
 import money.application.AccumulatedPoint.UseAccumulatedMoneyUseCase.dto.UseAccumulatedMoneyUseCaseRequest;
 import money.config.ApiErrorCodeExample;
@@ -17,8 +20,10 @@ import money.core.error.enums.BadRequestCode;
 import money.core.error.enums.NotFoundCode;
 import money.interfaces.IResponse;
 import money.presentation.request.AdditionalAccumulatedMoneyRequest;
+import money.presentation.request.FindTotalAccumulatedMoneyRequest;
 import money.presentation.request.FindUsageHistoryRequest;
 import money.presentation.request.UseAccumulatedMoneyRequest;
+import money.presentation.response.FindTotalAccumulatedMoneyResponse;
 import money.presentation.response.FindUsageHistoryResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -35,6 +40,7 @@ public class AccumulatedPointController {
     private final FindAccumulatedPointHistoryUseCase findAccumulatedPointHistoryUseCase;
     private final AdditionalAccumulatedMoneyUseCase additionalAccumulatedMoneyUseCase;
     private final UseAccumulatedMoneyUseCase useAccumulatedMoneyUseCase;
+    private final FindTotalAccumulatedMoneyUseCase findTotalAccumulatedMoneyUseCase;
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
     @PostMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
@@ -92,5 +98,25 @@ public class AccumulatedPointController {
         );
 
         return ResponseEntity.ok(new BaseResponse());
+    }
+
+    @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
+    @PostMapping(value = "/total", produces = "application/json; charset=UTF-8")
+    public ResponseEntity<FindTotalAccumulatedMoneyResponse> totalMoney(
+            @Valid @RequestBody FindTotalAccumulatedMoneyRequest findTotalAccumulatedMoneyRequest
+    ) {
+
+        IResponse<FindTotalAccumulatedMoneyUseCaseResponseBody>
+                findTotalAccumulatedMoneyUseCaseResponseBodyIResponse =
+                findTotalAccumulatedMoneyUseCase.execute(
+                FindTotalAccumulatedMoneyUseCaseRequest.init(
+                        findTotalAccumulatedMoneyRequest.getUuid()
+                )
+        );
+
+        FindTotalAccumulatedMoneyUseCaseResponseBody response =
+                findTotalAccumulatedMoneyUseCaseResponseBodyIResponse.getResponse();
+
+        return ResponseEntity.ok(FindTotalAccumulatedMoneyResponse.init(response.getPoint()));
     }
 }
