@@ -14,6 +14,7 @@ import money.infra.UserRepository;
 import money.interfaces.IRequest;
 import org.springframework.stereotype.Service;
 
+import static money.core.error.enums.BadRequestCode.USER_POINT_IS_MINUS;
 import static money.core.error.enums.NotFoundCode.USER_NOT_FOUND;
 
 @Service
@@ -28,6 +29,9 @@ public class UseAccumulatedMoneyUseCase {
 
         User user = userRepository.findUserByUuidAndStatus(conditions.getUuid(), UserStatus.ACTIVE.name())
                 .orElseThrow(() -> CommonException.init(USER_NOT_FOUND));
+
+        if ((Integer.parseInt(user.getPoint().toString()) - conditions.getPoint()) < 0)
+            throw CommonException.init(USER_POINT_IS_MINUS);
 
         AccumulatedMoneyHistory accumulatedMoneyHistory = new AccumulatedMoneyHistory();
         accumulatedMoneyHistory.setOnUser(user);
