@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
-@RequestMapping(value = "/v1/accumulated-point")
+@RequestMapping(value = "/v1/accumulating-point")
 @RestController
 @RequiredArgsConstructor
 public class AccumulatedMoneyController {
@@ -43,7 +43,7 @@ public class AccumulatedMoneyController {
     private final FindTotalAccumulatedMoneyUseCase findTotalAccumulatedMoneyUseCase;
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PostMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
+    @GetMapping(value = "/usage-history", produces = "application/json; charset=UTF-8")
     public ResponseEntity<FindUsageHistoryResponse> get(
             @Valid @RequestBody FindUsageHistoryRequest findUsageHistoryRequest,
             @PageableDefault(page = 1, sort = "index", direction = Sort.Direction.DESC)
@@ -70,7 +70,7 @@ public class AccumulatedMoneyController {
     }
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PostMapping(value = "/add", produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "/", produces = "application/json; charset=UTF-8")
     public ResponseEntity<BaseResponse> additionalMoney(
             @Valid @RequestBody AdditionalAccumulatedMoneyRequest additionalAccumulatedMoneyRequest
     ) {
@@ -87,7 +87,7 @@ public class AccumulatedMoneyController {
     }
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PostMapping(value = "/use", produces = "application/json; charset=UTF-8")
+    @PatchMapping(value = "/", produces = "application/json; charset=UTF-8")
     public ResponseEntity<BaseResponse> use(
             @Valid @RequestBody UseAccumulatedMoneyRequest useAccumulatedMoneyRequest
     ) {
@@ -103,7 +103,7 @@ public class AccumulatedMoneyController {
     }
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PostMapping(value = "/total", produces = "application/json; charset=UTF-8")
+    @GetMapping(value = "/total", produces = "application/json; charset=UTF-8")
     public ResponseEntity<FindTotalAccumulatedMoneyResponse> totalMoney(
             @Valid @RequestBody FindTotalAccumulatedMoneyRequest findTotalAccumulatedMoneyRequest
     ) {

@@ -25,7 +25,7 @@ public class UserController {
 
     private final SignUpUseCase signUpUseCase;
 
-    @PostMapping(value = "/signUp", produces = "application/json; charset=UTF-8")
+    @PostMapping(value = "/", produces = "application/json; charset=UTF-8")
     public ResponseEntity<SignUpUserResponse> signUp(
             @RequestBody @Valid SignUpUserRequest signUpUserRequest) {
 
