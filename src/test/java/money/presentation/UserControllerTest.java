@@ -27,7 +27,7 @@ class UserControllerTest {
     @Test
     void 회원_등록_후_uuid_를_받을_수_있어야_한다() {
         //given
-        String requestUrl = "/v1/user/signUp";
+        String requestUrl = "/v1/user/";
         SignUpUserRequest signUpUserRequest = new SignUpUserRequest(
                 "xodid7986", "1111dd2222@"
         );
@@ -45,7 +45,7 @@ class UserControllerTest {
     void 비밀번호는_영소문자를_최소_2개_이상_포함해야_한다() {
 
         //given
-        String requestUrl = "/v1/user/signUp";
+        String requestUrl = "/v1/user/";
         SignUpUserRequest signUpUserRequest = new SignUpUserRequest(
                 "xodid7986", "1111d2222@"
         );
@@ -61,7 +61,7 @@ class UserControllerTest {
     @Test
     void 아이디는_5자리_이상_이어야한다() {
         //given
-        String requestUrl = "/v1/user/signUp";
+        String requestUrl = "/v1/user/";
         SignUpUserRequest signUpUserRequest = new SignUpUserRequest(
                 "xodi", "1111dq2222@"
         );

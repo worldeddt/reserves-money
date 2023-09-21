@@ -87,7 +87,7 @@ public class AccumulatedMoneyController {
     }
 
     @ApiErrorCodeExample({BadRequestCode.class, NotFoundCode.class})
-    @PatchMapping(value = "/", produces = "application/json; charset=UTF-8")
+    @PutMapping(value = "/", produces = "application/json; charset=UTF-8")
     public ResponseEntity<BaseResponse> use(
             @Valid @RequestBody UseAccumulatedMoneyRequest useAccumulatedMoneyRequest
     ) {

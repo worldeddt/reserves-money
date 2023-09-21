@@ -15,12 +15,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import static money.core.error.enums.NotFoundCode.USER_NOT_FOUND;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -47,5 +52,24 @@ class AdditionalAccumulatedMoneyUseCaseTest {
 
         //then
         assertFalse(userByUuidAndStatus.isPresent());
+    }
+
+    @Test
+    void 데이터를_새로_추가할_경우_올바른_응답값이_입력되어야_한다() {
+        //given
+        AdditionalAccumulatedMoneyUseCaseRequest additionalAccumulatedMoneyUseCaseRequest =
+                AdditionalAccumulatedMoneyUseCaseRequest.init(
+                100,
+                "리뷰 이벤트 리워드",
+                ""
+        );
+
+        //when
+        additionalAccumulatedMoneyUseCase.execute(additionalAccumulatedMoneyUseCaseRequest);
+        //then
+
+        assertNull(userRepository.findUserByUuidAndStatus(
+                UUID.fromString(additionalAccumulatedMoneyUseCaseRequest.getConditions().getUuid()), UserStatus.ACTIVE.name())
+        );
     }
 }
