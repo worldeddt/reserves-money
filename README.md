@@ -42,3 +42,22 @@ MariaDB [(none)]> create database point;
 ./gradlew build -x test
 nohup java -jar build/libs/reserves-money-{version}.jar &
 ```
+
+### [필] TEST
+```
+최초 유저 가입을 통하여 uuid 를 발급
+```
+
+# Achitecture
+
+---
+
+전체 적인 코드 구조를 계층화 하여 infra(data) <> application <> presentation \
+구조로 설계되어 있으며 각 층별로 infra 에서 데이터를 application 에서 usecase 를 \
+presentation 에서 접근 인터페이스를 관리하도록 책임을 분산하였습니다.
+
+아울러, request body 와 response body 의 인터페이스 적용으로 역할(호출 조건과, 응답값 반환) 을 \
+추상화 및 구현하는데 중심을 두었으며 application 에서는 호출을 위한 조건을 conditions 로 \
+받아 캡슐화를 시도하였습니다.
+
+좀 더 고칠 점이나 리뷰가 생각나시면 언제든 환영합니다 😊

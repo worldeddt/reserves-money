@@ -16,4 +16,5 @@ public interface AccumulatedMoneyRepository extends JpaRepository<AccumulatedMon
     Page<AccumulatedMoneyHistory> findAllByUserUuidOrderByIndexDesc(UUID uuid, Pageable pageable);
 
     Optional<List<AccumulatedMoneyHistory>> findAllByUserUuidAndStatusOrderByIndexAsc(UUID uuid, String status);
+    Optional<List<AccumulatedMoneyHistory>> findAllByUserUuidAndStatusOrderByIndexDesc(UUID uuid, String status);
 }

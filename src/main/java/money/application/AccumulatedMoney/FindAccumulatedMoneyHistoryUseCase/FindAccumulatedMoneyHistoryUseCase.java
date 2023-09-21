@@ -45,14 +45,12 @@ public class FindAccumulatedMoneyHistoryUseCase {
             accumulatedMoneyHistoryDomains.add(AccumulatedMoneyHistoryDomain.init(row));
         });
 
-        return
-                FindAccumulatedMoneyHistoryUseCaseResponse.init(
-                        accumulatedMoneyHistoryDomains,
-                        conditions.getPageable().getPageNumber() + 1,
-                        conditions.getPageable().getPageSize(),
-                        accumulatedMoneyHistoryPage.getTotalElements(),
-                        accumulatedMoneyHistoryPage.getTotalPages(),
-                        accumulatedMoneyHistoryPage.isLast()
-                );
+        return FindAccumulatedMoneyHistoryUseCaseResponse.init(
+                accumulatedMoneyHistoryDomains,
+                conditions.getPageable().getPageNumber() + 1,
+                conditions.getPageable().getPageSize(),
+                accumulatedMoneyHistoryPage.getTotalElements(),
+                accumulatedMoneyHistoryPage.getTotalPages(),
+                accumulatedMoneyHistoryPage.isLast());
     }
 }

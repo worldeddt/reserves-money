@@ -1,38 +1,39 @@
 package money.application.AccumulatedMoney.AdditionalAccumulatedMoneyUseCase;
 
 import money.application.AccumulatedMoney.AdditionalAccumulatedMoneyUseCase.dto.AdditionalAccumulatedMoneyUseCaseRequest;
-import money.application.AccumulatedMoney.AdditionalAccumulatedMoneyUseCase.vo.AdditionalAccumulatedMoneyUseCaseRequestBody;
 import money.core.exceptions.CommonException;
+import money.domain.entity.AccumulatedMoneyHistory;
 import money.domain.entity.User;
+import money.domain.enums.AccumulateStatus;
 import money.domain.enums.UserStatus;
 import money.infra.AccumulatedMoneyRepository;
 import money.infra.UserRepository;
-import money.presentation.request.AdditionalAccumulatedMoneyRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.StopWatch;
 
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static money.core.error.enums.NotFoundCode.USER_NOT_FOUND;
-import static org.assertj.core.api.Assertions.assertThat;
+import static money.core.error.enums.NotFoundCode.RESERVESE_MONEY_LIST_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 
 
 @ExtendWith(MockitoExtension.class)
 class AdditionalAccumulatedMoneyUseCaseTest {
+    private StopWatch stopWatch;
+
+    @BeforeEach
+    public void setUp() {
+        stopWatch = new StopWatch("honeymon");
+    }
     @InjectMocks
     private AdditionalAccumulatedMoneyUseCase additionalAccumulatedMoneyUseCase;
-
 
     @Mock
     private UserRepository userRepository;
@@ -55,21 +56,22 @@ class AdditionalAccumulatedMoneyUseCaseTest {
     }
 
     @Test
-    void 데이터를_새로_추가할_경우_올바른_응답값이_입력되어야_한다() {
+    void 데이터를_새로_추가할_경우_올바른_값이_입력되어야_한다() {
         //given
         AdditionalAccumulatedMoneyUseCaseRequest additionalAccumulatedMoneyUseCaseRequest =
                 AdditionalAccumulatedMoneyUseCaseRequest.init(
                 100,
                 "리뷰 이벤트 리워드",
-                ""
-        );
+                "1ee57ce3-3542-6c0e-be4a-018eca932050");
 
         //when
         additionalAccumulatedMoneyUseCase.execute(additionalAccumulatedMoneyUseCaseRequest);
-        //then
 
-        assertNull(userRepository.findUserByUuidAndStatus(
-                UUID.fromString(additionalAccumulatedMoneyUseCaseRequest.getConditions().getUuid()), UserStatus.ACTIVE.name())
-        );
+        Optional<User> userByUuidAndStatus = userRepository.findUserByUuidAndStatus(
+                UUID.fromString(additionalAccumulatedMoneyUseCaseRequest.getConditions().getUuid()),
+                UserStatus.ACTIVE.name());
+
+        //then
+        assertFalse(userByUuidAndStatus.isPresent());
     }
 }
