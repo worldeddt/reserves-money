@@ -48,6 +48,11 @@ nohup java -jar build/libs/reserves-money-{version}.jar &
 최초 유저 가입을 통하여 uuid 를 발급
 ```
 
+### 포인트 사용을 적립된 순서대로 그 잔액을 사용하도록 구현
+![](/Users/eddy/Desktop/스크린샷 2023-09-21 오후 10.35.47.png)
+![](/Users/eddy/Desktop/스크린샷 2023-09-21 오후 10.36.12.png)
+![](/Users/eddy/Desktop/스크린샷 2023-09-21 오후 10.36.24.png)
+
 # Achitecture
 
 ---
