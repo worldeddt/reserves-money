@@ -8,6 +8,7 @@ import money.domain.enums.AccumulateStatus;
 import money.domain.enums.UserStatus;
 import money.infra.AccumulatedMoneyRepository;
 import money.infra.UserRepository;
+import money.presentation.request.AdditionalAccumulatedMoneyRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,6 +41,53 @@ class AdditionalAccumulatedMoneyUseCaseTest {
 
     @Mock
     private AccumulatedMoneyRepository accumulatedMoneyRepository;
+
+    //실패 케이스
+    @Test
+    void uuid_없이_적립금_적립을_할_수_없다() {
+        AdditionalAccumulatedMoneyRequest additionalAccumulatedMoneyRequest
+                = new AdditionalAccumulatedMoneyRequest(
+                        "", 200, "ACCUMUL"
+        );
+
+        try {
+            additionalAccumulatedMoneyUseCase.execute(
+                    AdditionalAccumulatedMoneyUseCaseRequest.init(
+                            additionalAccumulatedMoneyRequest.getPoint(),
+                            additionalAccumulatedMoneyRequest.getPurpose(),
+                            additionalAccumulatedMoneyRequest.getUuid()
+                    )
+            );
+        } catch (Exception e) {
+            assertEquals("Invalid UUID string: ", e.getMessage());
+        }
+    }
+
+    @Test
+    void 적립금이_없으면_적립을_할_수_없다() {
+        //given
+        AdditionalAccumulatedMoneyRequest additionalAccumulatedMoneyRequest
+                = new AdditionalAccumulatedMoneyRequest(
+                "", 0, "ACCUMUL"
+        );
+
+        //when
+        try {
+            additionalAccumulatedMoneyUseCase.execute(
+                    AdditionalAccumulatedMoneyUseCaseRequest.init(
+                            additionalAccumulatedMoneyRequest.getPoint(),
+                            additionalAccumulatedMoneyRequest.getPurpose(),
+                            additionalAccumulatedMoneyRequest.getUuid()
+                    )
+            );
+        } catch (Exception e) {
+
+            //then
+            assertEquals("Invalid UUID string: ", e.getMessage());
+        }
+    }
+
+    // 성공 케이스
 
     @Test
     void 예외처리_없이_저장이_이루어져야_한다() {

@@ -31,6 +31,8 @@ public class AdditionalAccumulatedMoneyUseCase {
 
         AdditionalAccumulatedMoneyUseCaseRequestBody conditions = iRequest.getConditions();
 
+        if (conditions.getPoint() == 0)
+
         User user = userRepository.findUserByUuidAndStatus(UUID.fromString(conditions.getUuid()), UserStatus.ACTIVE.name())
                 .orElseThrow(() -> CommonException.init(USER_NOT_FOUND));
 
